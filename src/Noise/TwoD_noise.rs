@@ -43,7 +43,7 @@ impl TwoD_Noise {
                     self.YOFF += 0.01;
                 }
                 self.XOFF += 0.01;
-                println!("{}", c);
+                // println!("{}", c);
                 c += 1;
             }
 
