@@ -8,6 +8,7 @@ use noise::{NoiseFn, Perlin, Seedable};
 use rand::Rng;
 use utilities::Vector2;
 use Balls::{bounce_no_vec, bounce_vec};
+use Ecosystem::ecosystem::EcoSystem;
 use Movers::mover::{self, ManyMovers, Mover};
 use Noise::{
     noise_walker::Noise_walker, noise_walker_vec::Noise_walker_vec, TwoD_noise::TwoD_Noise,
@@ -15,6 +16,7 @@ use Noise::{
 use Vector::vector_op::Vector_OP;
 
 mod Balls;
+mod Ecosystem;
 mod Movers;
 mod Noise;
 mod Vector;
@@ -41,6 +43,7 @@ pub struct AppState {
     vector_OP: Vector_OP,
     mover: Mover,
     movers: ManyMovers,
+    ecosystem: EcoSystem,
 }
 
 impl AppState {
@@ -59,6 +62,7 @@ impl AppState {
         let vector_sub = Vector_OP::new();
         let mover = Mover::new(100.0, 100.0);
         let movers = ManyMovers::new();
+        let ecosystem = EcoSystem::new();
 
         AppState {
             fps: _fps,
@@ -71,6 +75,7 @@ impl AppState {
             vector_OP: vector_sub,
             mover: mover,
             movers: movers,
+            ecosystem: ecosystem,
         }
     }
 }
@@ -89,7 +94,8 @@ impl EventHandler for AppState {
             // self.mover.update(ctx, &mut rng, &self.noice);
             // self.mover.check_edges();
 
-            self.movers.updateMany(ctx, &self.noice);
+            // self.movers.updateMany(ctx, &self.noice);
+            self.ecosystem.update(ctx, &self.noice);
         }
         Ok(())
     }
@@ -103,7 +109,8 @@ impl EventHandler for AppState {
         // self.vec_ball.draw(ctx);
         // self.vector_OP.draw(ctx);
         // self.mover.draw(ctx);
-        self.movers.drawMany(ctx);
+        // self.movers.drawMany(ctx);
+        self.ecosystem.draw(ctx);
         Ok(())
     }
 }

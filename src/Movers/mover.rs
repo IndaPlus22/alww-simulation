@@ -117,8 +117,6 @@ impl ManyMovers {
             let x = rng.gen_range(100.0..(SCREEN_SIZE.0 - 100.0));
             let y = rng.gen_range(100.0..(SCREEN_SIZE.1 - 100.0));
             let mover = Mover::new(x, y);
-            println!("{:?}", x);
-            println!("{:?}", y);
             _movers.push(mover);
         }
 

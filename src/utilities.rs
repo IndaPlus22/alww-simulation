@@ -1,4 +1,4 @@
-use std::ops::{Add, MulAssign, SubAssign};
+use std::ops::{Add, AddAssign, MulAssign, SubAssign};
 
 use rand::Rng;
 #[derive(Debug)]
@@ -28,7 +28,10 @@ where
     }
 }
 
-impl<T: num_traits::float::Float + std::ops::DivAssign + std::ops::MulAssign> Vector2<T> {
+impl<T> Vector2<T>
+where
+    T: num_traits::float::Float + std::ops::DivAssign + std::ops::MulAssign,
+{
     pub fn magnitude(&self) -> T {
         ((self.x).powi(2) + (self.y).powi(2)).sqrt()
     }
@@ -56,6 +59,16 @@ where
             x: self.x + rhs.x,
             y: self.y + rhs.y,
         }
+    }
+}
+
+impl<T> AddAssign for Vector2<T>
+where
+    T: std::ops::AddAssign,
+{
+    fn add_assign(&mut self, rhs: Self) {
+        self.x += rhs.x;
+        self.y += rhs.y;
     }
 }
 
